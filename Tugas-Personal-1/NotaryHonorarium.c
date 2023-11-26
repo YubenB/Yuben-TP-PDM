@@ -1,65 +1,67 @@
 #include <stdio.h>
 #include <stdint.h>
 
-// Modul Harga Objek Rumah
-unsigned long hitung_harga_objek_rumah()
+// Function to calculate the price of the house object
+unsigned long calculate_house_object_price()
 {
-    return 1500000000; // Harga objek rumah
+    return 1500000000; // House object price
 }
 
-// Modul Nilai Sosiologis
-double hitung_nilai_sosiologis()
+// Function to calculate sociological value
+double calculate_sociological_value()
 {
-    return 5000000.0; // Nilai Sosiologis
+    return 5000000.0; // Sociological value
 }
 
-// Modul Pengolahan Biaya Honorarium
-double hitung_biaya_honorarium(unsigned long hargaObjekRumah, double nilaiSosiologis, float *persentaseHonor)
+// Function to process honorarium cost
+double calculate_honorarium_cost(unsigned long houseObjectPrice, double sociologicalValue, float *honorPercentage)
 {
-    if (hargaObjekRumah <= 100000000)
+    if (houseObjectPrice <= 100000000)
     {
-        *persentaseHonor = 0.025f;
+        *honorPercentage = 0.025f;
     }
-    else if (hargaObjekRumah <= 1000000000)
+    else if (houseObjectPrice <= 1000000000)
     {
-        *persentaseHonor = 0.015f;
+        *honorPercentage = 0.015f;
     }
     else
     {
-        *persentaseHonor = 0.010f;
+        *honorPercentage = 0.010f;
     }
 
-    // Menghitung total honor setelah mengonversi persentase ke nilai nominal
-    return hargaObjekRumah * (*persentaseHonor) + nilaiSosiologis;
+    // Calculating total honor after converting the percentage to nominal value
+    return houseObjectPrice * (*honorPercentage) + sociologicalValue;
 }
 
-// Modul Output
-void tampilkan_output(unsigned long hargaObjekRumah, double nilaiSosiologis, float persentaseHonor, double totalHonor)
+// Function to display the output
+void display_output(unsigned long houseObjectPrice, double sociologicalValue, float honorPercentage, double totalHonor)
 {
-    printf("================================\n");
-    printf("PROGRAM PENGHITUNG CREDIT RUMAH\n");
-    printf("================================\n\n");
-
-    printf("Harga Objek Rumah: Rp.%lu\n", hargaObjekRumah);
-    printf("Nilai sosiologis: Rp.%.lf\n", nilaiSosiologis);
-    printf("Persentase honor: %.2f%%\n", persentaseHonor * 100); // Menampilkan persentase dengan 2 desimal
-    printf("Total Honor: Rp.%.lf\n", totalHonor);
+    printf("\n=======================================\n");
+    printf("NOTARY HONORARIUM CALCULATION PROGRAM\n");
+    printf("=======================================\n\n");
+    printf("\033[1;34mHouse Object Price:\033[0m \033[1;32mRp.%lu\033[0m\n", houseObjectPrice);
+    printf("\033[1;34mSociological Value:\033[0m \033[1;32mRp.%.lf\033[0m\n", sociologicalValue);
+    printf("--------------------------------------\n");
+    printf("         HONORARIUM DETAIL\n");
+    printf("--------------------------------------\n");
+    printf("\033[1;34mHonor Percentage:\033[0m \033[1;32m%.2f%%\033[0m\n", honorPercentage * 100);
+    printf("\033[1;34mTotal Honor:\033[0m \033[1;32mRp.%.lf\033[0m\n", totalHonor);
 }
 
 int main()
 {
-    // Memanggil modul Harga Objek Rumah
-    unsigned long hargaObjekRumah = hitung_harga_objek_rumah();
+    // Calling the function to calculate the price of the house object
+    unsigned long houseObjectPrice = calculate_house_object_price();
 
-    // Memanggil modul Nilai Sosiologis
-    double nilaiSosiologis = hitung_nilai_sosiologis();
+    // Calling the function to calculate sociological value
+    double sociologicalValue = calculate_sociological_value();
 
-    // Memanggil modul Pengolahan Biaya Honorarium
-    float persentaseHonor;
-    double totalHonor = hitung_biaya_honorarium(hargaObjekRumah, nilaiSosiologis, &persentaseHonor);
+    // Calling the function to process honorarium cost
+    float honorPercentage;
+    double totalHonor = calculate_honorarium_cost(houseObjectPrice, sociologicalValue, &honorPercentage);
 
-    // Memanggil modul Output
-    tampilkan_output(hargaObjekRumah, nilaiSosiologis, persentaseHonor, totalHonor);
+    // Calling the function to display the output
+    display_output(houseObjectPrice, sociologicalValue, honorPercentage, totalHonor);
 
     return 0;
 }
