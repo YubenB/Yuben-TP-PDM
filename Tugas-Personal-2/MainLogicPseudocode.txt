@@ -1,0 +1,148 @@
+function registerUser(users, userCount)
+    do
+        print "Enter username: "
+        input users[userCount].username
+
+        usernameExists = false
+        for i = 0 to userCount - 1
+            if users[i].username == users[userCount].username
+                print "Username already in use. Please choose a different username."
+                usernameExists = true
+                break
+            end if
+        end for
+
+        if not usernameExists
+            break
+        end if
+    while true
+
+    print "Enter password: "
+    input users[userCount].password
+
+    copy "user" to users[userCount].role
+
+    userCount++
+
+    file = open_file("users.txt", "a")
+    if file != null
+        fprintf(file, "%s %s %s\n", users[userCount - 1].username, users[userCount - 1].password, users[userCount - 1].role)
+        close_file(file)
+        print "Registration successful!"
+    else
+        print "Error opening file for writing."
+    end if
+
+function authenticateUser(users, userCount, username, password, role)
+    for i = 0 to userCount - 1
+        if users[i].username == username and users[i].password == password
+            copy users[i].role to role
+            return 1
+        end if
+    end for
+    return 0
+
+function performUserActions()
+    clearScreen()
+    print "Selamat Datang Pada Sistem Laporan Keuangan Toko BSC"
+    print "Harap meminta role admin kepada Admin untuk melihat laporan. Untuk pengetesan, Gunakan"
+    print "username : admin\npassword : admin\nuntuk mengubah role anda."
+    print "\nPress any key to continue..."
+    getchar()
+    getchar()
+
+function performAdminActions(users, userCount)
+    choice = 0
+    while choice != 5
+        clearScreen()
+        print "=========================="
+        print "Welcome! Your role is Admin"
+        print "==========================\n"
+        print "1. Lihat Laporan Laba Rugi"
+        print "2. Lihat Laporan Perubahan Modal"
+        print "3. Lihat Laporan Neraca"
+        print "4. Ganti Role Pengguna"
+        print "5. Logout"
+        print "Enter Your Choice: "
+        input choice
+
+        switch choice
+            case 1:
+                tampilkanDataLabaRugi()
+            case 2:
+                tampilkanDataLaporanPerubahanModal()
+            case 3:
+                tampilkanDataLaporanNeraca()
+            case 4:
+                changeUserRole(users, userCount)
+            case 5:
+                print "Logout Success"
+            default:
+                print "Invalid choice! Please input the corresponding choice that is available."
+        end switch
+    endwhile
+
+function tampilkanDataLabaRugi()
+    dataLaporan = ambilDataLaporanLabaRugi()
+    // Menampilkan data laporan laba rugi sesuai format
+
+function tampilkanDataLaporanPerubahanModal()
+    dataLaporan = ambilDataLaporanPerubahanModal()
+    // Menampilkan data laporan perubahan modal sesuai format
+
+function tampilkanDataLaporanNeraca()
+    dataLaporan = ambilDataLaporanNeraca()
+    // Menampilkan data laporan neraca sesuai format
+
+function ambilDataLaporanLabaRugi()
+    dataLaporan = retrieve_data_from_database("LaporanLabaRugi")
+    return dataLaporan
+
+function simpanPerubahanDataLabaRugi(newData)
+    save_data_to_database("LaporanLabaRugi", newData)
+    print "Perubahan berhasil disimpan."
+
+function ambilDataLaporanPerubahanModal()
+    dataLaporan = retrieve_data_from_database("LaporanPerubahanModal")
+    return dataLaporan
+
+function ambilDataLaporanPerubahanModal()
+    dataLaporan = retrieve_data_from_database("LaporanPerubahanModal")
+    return dataLaporan
+
+function simpanPerubahanDataLaporanPerubahanModal(newData)
+    save_data_to_database("LaporanPerubahanModal", newData)
+    print "Perubahan berhasil disimpan."
+
+function ambilDataLaporanNeraca()
+    dataLaporan = retrieve_data_from_database("LaporanNeraca")
+    return dataLaporan
+
+function simpanPerubahanDataLaporanNeraca(newData)
+    save_data_to_database("LaporanNeraca", newData)
+    print "Perubahan berhasil disimpan."
+
+function main()
+    // Inisialisasi data pengguna
+    // Load data pengguna dari file
+
+    do
+        // Menampilkan menu utama
+        // Memproses pilihan utama
+        switch choice
+            case 1:
+                // Registrasi pengguna
+                registerUser(users, userCount)
+            case 2:
+                // Login
+                // Mengambil input username dan password
+                // Memanggil fungsi authenticateUser
+                // Jika autentikasi berhasil, melakukan aksi sesuai role
+                performUserActions() atau performAdminActions()
+            case 3:
+                // Exit
+                print "Exiting program."
+            default:
+                print "Invalid choice. Please try again."
+        end switch
+    while choice != 3
